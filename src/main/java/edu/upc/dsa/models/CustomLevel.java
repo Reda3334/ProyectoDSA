@@ -9,7 +9,7 @@ public class CustomLevel {
     @SQLNotInsert private String id;
     @SQLNotInsert @SQLNotSelect private List<MapElement> elements;
     private String levelName;
-    private String userId;
+    private String userName;
 
     public CustomLevel(){}
 
@@ -29,12 +29,12 @@ public class CustomLevel {
         this.levelName = levelName;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(String userName) {
-        this.userId = this.userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getId() {
