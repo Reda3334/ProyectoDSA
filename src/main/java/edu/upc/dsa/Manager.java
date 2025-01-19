@@ -65,6 +65,6 @@ public interface Manager {
     void updateUserLevel(String userID, int level) throws SQLException, UserNotFoundException;
 
 
-   int getUserLevel(String userID) throws SQLException, UserNotFoundException;
-    List<CustomLevel> getCustomLevelsByUserId(String userId) throws SQLException;
+    int getUserLevel(String userID) throws SQLException, UserNotFoundException;
+    List<CustomLevel> getAllCustomLevels() throws SQLException;
 }

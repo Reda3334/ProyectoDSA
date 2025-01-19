@@ -270,12 +270,14 @@ public class DAO implements Manager {
         }
         return users.get(0).getLevel();
     }
+
     @Override
-    public List<CustomLevel> getCustomLevelsByUserId(String userId) throws SQLException {
-        List<CustomLevel> levels = session.findAll(CustomLevel.class, Map.of("userId", userId));
+    public List<CustomLevel> getAllCustomLevels() throws SQLException {
+        List<CustomLevel> levels = session.findAll(CustomLevel.class);
         for (CustomLevel level : levels) {
             level.setElements(session.findAll(MapElement.class, Map.of("levelId", level.getId())));
         }
         return levels;
     }
+
 }
