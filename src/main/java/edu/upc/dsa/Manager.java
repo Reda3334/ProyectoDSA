@@ -67,4 +67,6 @@ public interface Manager {
 
     int getUserLevel(String userID) throws SQLException, UserNotFoundException;
     List<CustomLevel> getAllCustomLevels() throws SQLException;
+
+    void printMessageFromAndroid(String message);
 }

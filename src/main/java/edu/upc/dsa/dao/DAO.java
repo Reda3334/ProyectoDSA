@@ -280,4 +280,12 @@ public class DAO implements Manager {
         return levels;
     }
 
+    @Override
+    public void printMessageFromAndroid(String message) {
+        System.out.println("Message received from Android: " + message);
+
+        // 如果需要日志记录，可以使用 Logger
+        logger.info("Message received from Android: " + message);
+    }
+
 }

@@ -265,5 +265,13 @@ public class ManagerImpl implements Manager {
         return DAO.getInstance().getAllCustomLevels();
     }
 
+    @Override
+    public void printMessageFromAndroid(String message) {
+        // 打印到控制台
+        System.out.println("Message received from Android: " + message);
+
+        // 可选的日志记录
+        logger.info("Message received from Android: " + message);
+    }
 
 }
