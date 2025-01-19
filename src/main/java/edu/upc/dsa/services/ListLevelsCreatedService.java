@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -19,6 +20,7 @@ import java.util.List;
 @Path("/levels")
 public class ListLevelsCreatedService {
 
+    private static final Logger logger = Logger.getLogger(ListLevelsCreatedService.class);
     Manager manager = DAO.getInstance();
 
     @GET
@@ -29,13 +31,22 @@ public class ListLevelsCreatedService {
             @ApiResponse(code = 500, message = "Internal server error")
     })
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getLevelsByUserId() {
+    public Response getAllLevels() {
         try {
-            List<CustomLevel> levels = manager.getCustomLevels();
+            logger.info("Fetching all custom levels");
+            List<CustomLevel> levels = manager.getAllCustomLevels(); // 使用新的方法获取所有 CustomLevel
+            if (levels == null || levels.isEmpty()) {
+                logger.warn("No custom levels found");
+                return Response.status(Response.Status.NOT_FOUND).entity("No custom levels found").build();
+            }
             GenericEntity<List<CustomLevel>> entity = new GenericEntity<>(levels) {};
             return Response.ok(entity).build();
         } catch (SQLException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            logger.error("SQL error while fetching levels", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Database error").build();
+        } catch (Exception e) {
+            logger.error("Unexpected error while fetching levels", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Unexpected error").build();
         }
     }
 }
