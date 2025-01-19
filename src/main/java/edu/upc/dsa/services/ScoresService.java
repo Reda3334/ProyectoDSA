@@ -28,10 +28,10 @@ public class ScoresService {
             @ApiResponse(code = 500, message = "Internal server error")
     })
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response submitScore(@PathParam("userID") String userID, ScoreData scoreData) {
         try {
             manager.addScore(userID, scoreData);
+            manager.updateUserLevel(userID, scoreData.getLevel());
             return Response.ok().build();
         } catch (Exception e) {
             logger.error(e);
